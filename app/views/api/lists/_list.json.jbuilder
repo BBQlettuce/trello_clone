@@ -1,4 +1,4 @@
-json.extract! list, :title, :ord
+json.extract! list, :title, :ord, :board_id
 json.cards do
   json.array! list.cards do |card|
     json.partial! 'api/cards/card', card: card
