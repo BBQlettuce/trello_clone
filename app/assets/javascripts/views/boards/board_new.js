@@ -1,5 +1,5 @@
 TrelloClone.Views.BoardNew = Backbone.View.extend({
-  template: JST['board_new'],
+  template: JST['boards/new'],
 
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render);
