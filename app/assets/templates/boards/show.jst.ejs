@@ -4,6 +4,7 @@
 </ul>
 
 <form class='list-adder'>
-  <input type='text' name='title' value='Add a list!'>
+  <input class='list-adder-prompt' type='text' name='title' value='Add a list!'>
+  <input type='hidden' name='board_id' value='<%=board.id%>'>
   <input type='submit' value='Create List'>
 </div>

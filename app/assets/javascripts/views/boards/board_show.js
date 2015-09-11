@@ -40,8 +40,15 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
 
   saveList: function(e) {
     e.preventDefault();
-    var $data = $(e.currentTarget).serializeJSON();
-    this.collection.create($data);
+    var data = $(e.currentTarget).serializeJSON();
+    var newList = new TrelloClone.Models.List();
+    newList.save(data, {
+      success: function(model) {
+        this.collection.add(model);
+      }.bind(this)
+    });
+
+    $('.list-adder-prompt').val('Add a list!');
   }
 
 })
