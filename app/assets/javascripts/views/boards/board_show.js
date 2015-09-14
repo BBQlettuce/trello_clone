@@ -46,7 +46,7 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
     if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
       $div = $(e.currentTarget);
       var subviews = this.subviews('.list-add-box');
-      subviews.each(this.removeSubview.bind(this, '.add-box'));
+      subviews.each(this.removeSubview.bind(this, '.list-add-box'));
       $div.removeClass('list-add-box').addClass('list-adder').html("Add a list!");
     }
   },

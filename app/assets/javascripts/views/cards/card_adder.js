@@ -1,4 +1,4 @@
-TrelloClone.Views.ListAdder = Backbone.View.extend({
+TrelloClone.Views.CardAdder = Backbone.View.extend({
   template: JST['cards/card_adder'],
 
   tagName: 'form',
@@ -10,6 +10,7 @@ TrelloClone.Views.ListAdder = Backbone.View.extend({
 
   initialize: function() {
     // this.listenTo(this.collection, "sync", this.render);
+    // this.listenTo(this.model, "sync", this.render);
   },
 
   render: function() {
@@ -19,6 +20,7 @@ TrelloClone.Views.ListAdder = Backbone.View.extend({
 
   saveCard: function(e) {
     e.preventDefault();
+    debugger
     var data = this.$el.serializeJSON();
     var newCard = new TrelloClone.Models.Card();
     newCard.save(data, {
