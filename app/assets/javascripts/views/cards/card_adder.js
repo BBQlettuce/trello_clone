@@ -1,11 +1,11 @@
 TrelloClone.Views.ListAdder = Backbone.View.extend({
-  template: JST['lists/list_adder'],
+  template: JST['cards/card_adder'],
 
   tagName: 'form',
-  className: 'new-list-form',
+  className: 'new-card-form',
 
   events: {
-    "click .submit-button": "saveList"
+    "click .submit-button": "saveCard"
   },
 
   initialize: function() {
@@ -13,15 +13,15 @@ TrelloClone.Views.ListAdder = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(this.template({board: this.model}));
+    this.$el.html(this.template({list: this.model}));
     return this;
   },
 
-  saveList: function(e) {
+  saveCard: function(e) {
     e.preventDefault();
     var data = this.$el.serializeJSON();
-    var newList = new TrelloClone.Models.List();
-    newList.save(data, {
+    var newCard = new TrelloClone.Models.Card();
+    newCard.save(data, {
       success: function(model) {
         this.collection.add(model);
       }.bind(this)
