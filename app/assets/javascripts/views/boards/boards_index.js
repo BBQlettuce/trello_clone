@@ -3,9 +3,11 @@ TrelloClone.Views.BoardsIndex = Backbone.View.extend({
   itemTemplate: JST['boards/index_item'],
 
   className: 'boards-index',
-  
+
   initialize: function() {
     this.listenTo(this.collection, "sync", this.render);
+    this.listenTo(this.collection, "add", this.render);
+    this.listenTo(this.collection, "remove", this.render);
   },
 
   render: function() {
