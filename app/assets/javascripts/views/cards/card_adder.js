@@ -20,7 +20,7 @@ TrelloClone.Views.CardAdder = Backbone.View.extend({
 
   saveCard: function(e) {
     e.preventDefault();
-    debugger
+    // debugger
     var data = this.$el.serializeJSON();
     var newCard = new TrelloClone.Models.Card();
     newCard.save(data, {

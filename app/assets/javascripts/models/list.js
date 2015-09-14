@@ -14,9 +14,6 @@ TrelloClone.Models.List = Backbone.Model.extend({
     if (!this._cards) {
       this._cards = new TrelloClone.Collections.Cards([]);
     }
-    // if (this.attributes.cards) {
-    //   this._cards = new TrelloClone.Collections.Cards(this.attributes.cards);
-    // }
     return this._cards;
   }
 
