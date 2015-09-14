@@ -2,8 +2,8 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
   template: JST['boards/show'],
 
   events: {
-    "dblclick .list-adder": "renderListAdder"
-    // "blur .list-adder": "killListAdder"
+    "click .list-adder": "renderListAdder",
+    "blur .add-box": "killListAdder"
   },
 
   initialize: function() {
@@ -24,14 +24,23 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
     return this;
   },
 
-  renderListAdder: function() {
+  renderListAdder: function(e) {
+    e.preventDefault();
+    $div = $(e.currentTarget);
+    $div.removeClass('list-adder').addClass('add-box').empty();
     var subview = new TrelloClone.Views.ListAdder({collection: this.collection, model: this.model});
-    this.addSubview('.list-adder', subview);
+    this.addSubview('.add-box', subview);
+    $div.find('.list-adder-prompt').focus();
   },
 
-  killListAdder: function() {
-    var subviews = this.subviews('.list-adder');
-    subviews.each(this.removeSubview.bind(this, '.list-adder'));
+  killListAdder: function(e) {
+    e.preventDefault();
+    if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
+      $div = $(e.currentTarget);
+      var subviews = this.subviews('.add-box');
+      subviews.each(this.removeSubview.bind(this, '.add-box'));
+      $div.removeClass('add-box').addClass('list-adder').html("Add a list!");
+    }
   }
 
 })

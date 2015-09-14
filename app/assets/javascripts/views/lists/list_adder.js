@@ -1,12 +1,14 @@
 TrelloClone.Views.ListAdder = Backbone.View.extend({
   template: JST['lists/add_form'],
 
+  tagName: 'form',
+
   events: {
-    "submit .list-adder-form": "saveList"
+    "click .submit-button": "saveList"
   },
 
   initialize: function() {
-    this.listenTo(this.collection, "sync", this.render);
+    // this.listenTo(this.collection, "sync", this.render);
   },
 
   render: function() {
@@ -16,15 +18,13 @@ TrelloClone.Views.ListAdder = Backbone.View.extend({
 
   saveList: function(e) {
     e.preventDefault();
-    var data = $(e.currentTarget).serializeJSON();
-    debugger
+    var data = this.$el.serializeJSON();
     var newList = new TrelloClone.Models.List();
     newList.save(data, {
       success: function(model) {
         this.collection.add(model);
       }.bind(this)
     });
-
   }
 
 })
