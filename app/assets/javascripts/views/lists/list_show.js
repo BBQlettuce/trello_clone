@@ -4,11 +4,11 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
   className: 'list',
 
   initialize: function() {
-    this.collection = this.model.cards();
+    // this.collection = this.model.cards();
     this.listenTo(this.model, "sync", this.render);
-    this.listenTo(this.collection, "add", this.addCardView);
-    this.listenTo(this.collection, "remove", this.removeListView);
-    this.collection.each(this.addCardView.bind(this));
+    this.listenTo(this.model.cards(), "add", this.addCardView);
+    this.listenTo(this.model.cards(), "remove", this.removeListView);
+    this.model.cards().each(this.addCardView.bind(this));
 
     this.$el.on("submitted", this.killCardAdder.bind(this));
   },
@@ -39,14 +39,15 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
     e.preventDefault();
     $div = $(e.currentTarget);
     $div.removeClass('card-adder').addClass('card-add-box').empty();
-    var subview = new TrelloClone.Views.CardAdder({collection: this.collection, model: this.model});
+    var subview = new TrelloClone.Views.CardAdder({collection: this.model.cards(), model: this.model});
     this.addSubview('.card-add-box', subview);
     $div.find('.card-adder-prompt').focus();
   },
 
   killCardAdder: function(e) {
     e.preventDefault();
-    if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
+    if (!e.relatedTarget || e.relatedTarget.type !== 'submit') {
+      debugger
       var $div = $('.card-add-box');
       if ($div.length !== 0) {
         var subviews = this.subviews('.card-add-box');
