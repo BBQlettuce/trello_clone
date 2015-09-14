@@ -37,7 +37,6 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
     e.preventDefault();
     $div = $(e.currentTarget);
     $div.removeClass('card-adder').addClass('card-add-box').empty();
-    debugger
     var subview = new TrelloClone.Views.CardAdder({collection: this.collection, model: this.model});
     this.addSubview('.card-add-box', subview);
     $div.find('.card-adder-prompt').focus();

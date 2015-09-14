@@ -2,7 +2,7 @@
 # it should include the board
 #  - its lists
 #    - the cards for each list
-json.extract! @board, :title
+json.extract! @board, :id, :title
 json.lists do
   json.array! @board.lists do |list|
     json.partial! 'api/lists/list', list: list
