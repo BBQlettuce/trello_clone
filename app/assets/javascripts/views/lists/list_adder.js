@@ -21,9 +21,11 @@ TrelloClone.Views.ListAdder = Backbone.View.extend({
     e.preventDefault();
     var data = this.$el.serializeJSON();
     var newList = new TrelloClone.Models.List();
+    // debugger
     newList.save(data, {
       success: function(model) {
         this.collection.add(model);
+        this.$el.trigger("submitted");
       }.bind(this)
     });
   }

@@ -14,6 +14,7 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
   events: {
     "click .card-adder": "renderCardAdder",
     "blur .card-add-box": "killCardAdder",
+    // "submitted": "junk",
     "click .delete-list": "deleteList"
   },
 
@@ -32,6 +33,10 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
     return this;
   },
 
+  // junk: function() {
+  //   console.log("junk");
+  // },
+
   renderCardAdder: function(e) {
     e.preventDefault();
     $div = $(e.currentTarget);
@@ -43,12 +48,12 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 
   killCardAdder: function(e) {
     e.preventDefault();
-    if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
+    // if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
       $div = $(e.currentTarget);
       var subviews = this.subviews('.card-add-box');
       subviews.each(this.removeSubview.bind(this, '.card-add-box'));
       $div.removeClass('card-add-box').addClass('card-adder').html("Add a card...");
-    }
+    // }
   },
 
   deleteList: function(e) {
