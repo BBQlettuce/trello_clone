@@ -6,7 +6,6 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
   events: {
     "click .list-adder": "renderListAdder",
     "blur .list-add-box": "killListAdder",
-    // "jaja .list-adder": "killListAdder",
     "click .delete-board": "deleteBoard"
   },
 
@@ -38,6 +37,7 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
     // debugger
     this.$el.html(this.template({board: this.model}));
     this.attachSubviews();
+    this.$('.sortable').sortable();
     return this;
   },
 
@@ -54,10 +54,16 @@ TrelloClone.Views.BoardShow = Backbone.CompositeView.extend({
     // debugger
     e.preventDefault();
     if (!e.relatedTarget || e.relatedTarget.type !== 'submit') {
-      $div = $('.list-add-box');
-      var subviews = this.subviews('.list-add-box');
-      subviews.each(this.removeSubview.bind(this, '.list-add-box'));
-      $div.removeClass('list-add-box').addClass('list-adder').html("Add a list!");
+      var $div = $('.list-add-box');
+      // debugger
+      if ($div.length !== 0) {
+        var subviews = this.subviews('.list-add-box');
+        subviews.each(this.removeSubview.bind(this, '.list-add-box'));
+        $div.removeClass('list-add-box').addClass('list-adder').html("Add a list!");
+      }
+      else {
+        console.log("bhbhbhb");
+      }
     }
   },
 

@@ -26,6 +26,7 @@ TrelloClone.Views.CardAdder = Backbone.View.extend({
     newCard.save(data, {
       success: function(model) {
         this.collection.add(model);
+        this.$el.trigger("submitted");
       }.bind(this)
     });
   }

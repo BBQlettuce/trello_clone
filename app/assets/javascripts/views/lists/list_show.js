@@ -9,12 +9,13 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
     this.listenTo(this.collection, "add", this.addCardView);
     this.listenTo(this.collection, "remove", this.removeListView);
     this.collection.each(this.addCardView.bind(this));
+
+    this.$el.on("submitted", this.killCardAdder.bind(this));
   },
 
   events: {
     "click .card-adder": "renderCardAdder",
     "blur .card-add-box": "killCardAdder",
-    // "submitted": "junk",
     "click .delete-list": "deleteList"
   },
 
@@ -30,12 +31,9 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
   render: function() {
     this.$el.html(this.template({list: this.model}))
     this.attachSubviews();
+    this.$('.sortable').sortable();
     return this;
   },
-
-  // junk: function() {
-  //   console.log("junk");
-  // },
 
   renderCardAdder: function(e) {
     e.preventDefault();
@@ -48,12 +46,14 @@ TrelloClone.Views.ListShow = Backbone.CompositeView.extend({
 
   killCardAdder: function(e) {
     e.preventDefault();
-    // if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
-      $div = $(e.currentTarget);
-      var subviews = this.subviews('.card-add-box');
-      subviews.each(this.removeSubview.bind(this, '.card-add-box'));
-      $div.removeClass('card-add-box').addClass('card-adder').html("Add a card...");
-    // }
+    if (!e.relatedTarget || e.relatedTarget.type!=='submit') {
+      var $div = $('.card-add-box');
+      if ($div.length !== 0) {
+        var subviews = this.subviews('.card-add-box');
+        subviews.each(this.removeSubview.bind(this, '.card-add-box'));
+        $div.removeClass('card-add-box').addClass('card-adder').html("Add a card...");
+      }
+    }
   },
 
   deleteList: function(e) {
